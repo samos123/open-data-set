@@ -2,7 +2,6 @@
 import json
 
 from google.cloud import datastore
-from google.appengine.api import search
 
 # Instantiates a client
 ds = datastore.Client.from_service_account_json("service-account.json")
