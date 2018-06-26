@@ -1,6 +1,7 @@
 import os
 import json
 import redis
+import logging
 from walrus import Database
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
@@ -15,7 +16,12 @@ def read_json_file(path):
 def populate_index():
     products = read_json_file("products.json")
     for product in products:
-        ac.store(obj_id=product['sku'], title=product['name'])
+        try:
+            ac.store(obj_id=product['sku'], title=product['name'])
+        except Exception as e:
+            logging.exception("Issue creating index for product id: %s name: %s",
+                              product['sku'], product['name'])
+
 
 if __name__ == "__main__":
     populate_index()
