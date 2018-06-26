@@ -17,7 +17,8 @@ def populate_index():
     products = read_json_file("products.json")
     for product in products:
         try:
-            ac.store(obj_id=product['sku'], title=product['name'])
+            metadata = {'sku': product['sku'], 'name': product['name']}
+            ac.store(obj_id=product['sku'], title=product['name'], data=metadata)
         except Exception as e:
             logging.exception("Issue creating index for product id: %s name: %s",
                               product['sku'], product['name'])
@@ -25,4 +26,4 @@ def populate_index():
 
 if __name__ == "__main__":
     populate_index()
-    print(ac.search("Bat"))
+    print(next(ac.search("Bat")))
