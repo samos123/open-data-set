@@ -8,7 +8,7 @@ redis_host = os.environ.get('REDISHOST', 'localhost')
 redis_port = int(os.environ.get('REDISPORT', 6379))
 #redis_client = redis.StrictRedis(host=redis_host, port=redis_port)
 walrus_db = Database(host=redis_host, port=redis_port)
-ac = walrus_db.autocomplete()
+ac = walrus_db.autocomplete(stopwords_file=None)
 
 def read_json_file(path):
     return json.loads(open(path).read())
